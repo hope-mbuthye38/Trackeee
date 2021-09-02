@@ -1,0 +1,108 @@
+<div class="container">
+    <form #githubApi="ngForm">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input [(ngModel)]="username" #user="ngModel" type="search" name="username" id="name" class="form-control"
+                required>
+            <button (click)="submitInput()" type="submit" class="btn btn-outline-success btn-hov"><i class="fa fa-search"></i></button>
+        </div>
+    </form>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Profile</h2>
+            <div class="card-header bg-primary no-border mb-3" style="max-width: 540px;">
+                <div class="col-md-8">
+                    <img src="{{ userProfile.avatar_url }}" class="card-img img-fluid mb-3" >
+                    <div class="col-md-8">
+                        <div class="card-body bg-primary">
+                            <h3 class="card-title">{{ userProfile.name }} <a href="{{ userProfile.html_url }}">
+                                        <i class="fa fa-github-alt" aria-hidden="true"></i>Github</a></h3>
+                            <p class="card-text"><span>Username:</span>{{ userProfile.login }}</p>
+                            <p *ngIf="userProfile.bio" class="card-text"><span>Bio:</span>{{ userProfile.bio }}</p>
+                            <p class="card-text"><span>Created at:</span>{{ userProfile.created}}</p>
+                            <p *ngIf="userProfile.location" class="card-text"><i class="fa fa-map-marker-alt"></i>{{
+                                userProfile.location }}</p>
+                            <p *ngIf="userProfile.blog" class="card-text"><i class="fa fa-link"></i><a
+                                    href="{{ userProfile.blog }}">{{ userProfile.blog }}</a></p>
+                            <p *ngIf="userProfile.email" class="card-text"><i class="fa fa-envelope-open-text"></i>{{
+                                userProfile.email }}</p>
+                            <p *ngIf="userProfile.company" class="card-text"><i class="fa fa-briefcase"></i>{{
+                                userProfile.company }}</p>
+                            <div class="badge badge-dark card-footer">
+                                <a class="btn btn-dark btn-sm mr-3 space">Followers <span class="badge badge-secondary">{{
+                                        userProfile.followers }}</span></a>
+                                <a class="btn btn-dark btn-sm space">Following <span class="badge badge-secondary">{{
+                                        userProfile.following }}</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <nav *ngIf="userProfile" class="sticky-top s-top bg-light">
+                <div classs="nav nav-tabs " role="tablist">
+                    <a href="#" *ngIf="userProfile " class="nav-item nav-link active" id="nav-home-tab"
+                        data-toggle="tab" role="tab" aria-controls="nav-home" aria-selected="true">Repos <span
+                            class="badge badge-secondary">{{
+                            userProfile.public_repos }}</span></a>
+                    <a href="#" *ngIf="userProfile " class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab"
+                        role="tab" aria-controls="nav-profile" aria-selected="false">Followers <span
+                            class="badge badge-secondary">{{
+                            userProfile.followers }}</span></a>
+                    <a href="#" *ngIf="userProfile " class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab"
+                        role="tab" aria-controls="nav-contact" aria-selected="false">Following <span
+                            class="badge badge-secondary">{{
+                            userProfile.following }}</span></a>
+                </div>
+            </nav>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="repos" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div *ngFor="let repo of repos; let i = index">
+                        <div appCardHover class="card bottom-space">
+                            <div class="card-body">
+                                <h5>{{ repo.name }} <i *ngIf="repo.clone" class="fa fa-code-branch fa-xs"></i><span
+                                        style="background-color: #393c40;"
+                                        class="badge badge-secondary">{{repo.language}}</span>
+                                </h5>
+                                <p>{{repo.description}}</p>
+                                <a href="{{repo.html_url}}" target="blank">
+                                    <button class="btn btn -dark">View on Github:: <i class="fa fa-github"></i> </button>
+                                </a>
+                                <div class="date">
+                                    <small><span>last modified::</span>{{repo.updateda}} </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade " id="followers" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div *ngIf="let follower of followers">
+                        <div class="media" appCardHover>
+                            <img src={{ follower.avatar_url }} class="mr-3 thumb" alt="avatar">
+                            <div class="media-body">
+                                <a href={{ follower.html_url }} target="blank">
+                                    <!-- <h5>{{ follower.login }}</h5> -->
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="following" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <div *ngIf="let follower of following">
+                        <div class="media" appCardHover>
+                            <img src={{ follower.avatar_url }} class="mr-3 thumb" alt="">
+                            <div class="media-body">
+                                <a href={{ follower.html_url }} target="blank">
+                                    <!-- <h5>{{ follower.login }}</h5> -->
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

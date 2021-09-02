@@ -1,0 +1,44 @@
+<h1>GET REPO</h1>
+<P>Get your pals repositories and a history of their various projects from the join of github</P>
+<h2>CATEGORIES OF REPOSITORIES</h2>
+<div class="container">
+    <form #githubApi="ngForm">
+        <div class="form-group">
+            <label for="repository"></label>
+            <input [(ngModel)]="repository" #repo="ngModel" type="search" name="repository" id="name" placeholder="Input Repository name......" class="form-control"
+                required>
+            <button (click)="submitInput()" type="submit" class="btn btn-outline-success btn-hov"><i class="fa fa-search"></i></button>
+        </div>
+    </form>
+    <hr>
+<div class="col-md-6">
+    <h2>Repositories</h2>
+    <div class="col-md-8">
+        <div class="card-body" *ngIf="repoProfile">
+            <div class="card" *ngFor="let item of repoProfile.items">
+                <h3 class="card-header"> {{ item.name}}</h3>
+                <div class="card-body">
+                    <ul>
+                        <li>
+                            Description: {{item.description}}
+                        </li>
+                        <li>
+                           Clone_url: {{item.clone_url}}
+                        </li>
+                        <li>
+                           Language: {{item.language}}
+                        </li>
+                        <div class="card-footer">
+                        <li>
+                           Created_at: {{item.created_at | date}}
+                        </li>
+                        <li>
+                            Updated_at: {{item.updated_at | date}}
+                        </li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
